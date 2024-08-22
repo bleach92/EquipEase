@@ -10,14 +10,20 @@ exports.register = async (req, res) => {
             return res.status(400).json({ msg: 'User already exists' });
         }
 
-        user = new User({ username, password, role });
+        user = new User({ username, role });
+
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(password, salt);
+
         await user.save();
 
         const payload = { user: { id: user.id } };
+
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.json({ token });
     } catch (error) {
+        console.error('Error during registration:', error.message);
         res.status(500).json({ error: 'Server error' });
     }
 };
@@ -36,10 +42,12 @@ exports.login = async (req, res) => {
         }
 
         const payload = { user: { id: user.id } };
+
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.json({ token });
     } catch (error) {
+        console.error('Error during login:', error.message);
         res.status(500).json({ error: 'Server error' });
     }
 };

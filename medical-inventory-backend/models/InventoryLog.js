@@ -9,5 +9,4 @@ const InventoryLogSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now }
 });
 
-// Check if the model is already compiled
 module.exports = mongoose.models.InventoryLog || mongoose.model('InventoryLog', InventoryLogSchema);

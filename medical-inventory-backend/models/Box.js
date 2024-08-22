@@ -9,5 +9,4 @@ const BoxSchema = new mongoose.Schema({
   }],
 });
 
-// Check if the model is already compiled
 module.exports = mongoose.models.Box || mongoose.model('Box', BoxSchema);
