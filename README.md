@@ -60,23 +60,3 @@ npm start
 Usage
 Access the frontend at http://localhost:3000 and the backend at http://localhost:3001.
 Register a new account or log in with existing credentials to start managing your medical inventory.
-Contributing
-Contributions are welcome! Please follow these steps:
-
-Fork the repository.
-Create a new branch for your feature or bugfix:
-bash
-Copy code
-git checkout -b feature-name
-Commit your changes:
-bash
-Copy code
-git commit -m "Add a descriptive commit message"
-Push to the branch:
-bash
-Copy code
-git push origin feature-name
-Open a pull request.
-License
-This project is licensed under the MIT License. See the LICENSE file for more details.
-
