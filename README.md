@@ -2,52 +2,52 @@
 
 EquipEase is a medical inventory management system designed to streamline the tracking and managing of medical equipment and supplies. The system consists of a backend built with Node.js and MongoDB, and a frontend using standard web technologies.
 
-# Features
+## Features
 Inventory Management: Track medical equipment and supplies.
 User Authentication: Secure login and access control.
 Search and Filter: Easily find items in the inventory.
 Responsive Design: Access the system on various devices.
 
-## Installation
+# Installation
 
-Before you begin, ensure you have >Node.js and >MongoDB installed on your system.
+> Before you begin, ensure you have Node.js and MongoDB installed on your system.
 
-# Backend Setup
+## Backend Setup
 
- Clone the repository:
+### Clone the repository:
 
 `git clone https://github.com/bleach92/EquipEase.git
 cd EquipEase/medical-inventory-backend`
 
-Install dependencies:
+### Install dependencies:
 
 `npm install`
 
-Create a .env file in the medical-inventory-backend directory with the following variables:
+### Create a .env file in the medical-inventory-backend directory with the following variables:
 
 `MONGODB_URI=<your_mongodb_connection_string>
-PORT=3001
+PORT=<mongodb_port>
 JWT_SECRET=<your_jwt_secret>`
 
-Start the backend server:
+### Start the backend server:
 
 `npm start`
 
 # Frontend Setup
 
-Navigate to the frontend directory:
+### Navigate to the frontend directory:
 
 `cd ../medical-inventory-frontend`
 
-Install dependencies:
+### Install dependencies:
 
 `npm install`
 
-Start the frontend server:
+### Start the frontend server:
 
 `npm start`
 
 # Usage
 
-Access the frontend at http://localhost:3000 and the backend at http://localhost:3001.
+Access the frontend at http://localhost:3000 and the backend at http://localhost:5001.
 Register a new account or log in with existing credentials to start managing your medical inventory.
