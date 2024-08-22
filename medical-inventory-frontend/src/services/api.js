@@ -1,24 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import InventoryPage from './pages/InventoryPage';
-import LoginPage from './pages/LoginPage';
-import Navbar from './components/Navbar';
+import axios from 'axios';
 
-function App() {
-   const isAuthenticated = !!localStorage.getItem('token');
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
-   return (
-       <Router>
-           {isAuthenticated && <Navbar />}
-           <Routes>
-               <Route path="/login" element={<LoginPage />} />
-               <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
-               <Route path="/inventory/:id" element={isAuthenticated ? <InventoryPage /> : <Navigate to="/login" />} />
-               <Route path="/" element={<Navigate to="/dashboard" />} />
-           </Routes>
-       </Router>
-   );
-}
+const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
-export default App;
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers['Authorization'] = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export const login = (username, password) => api.post('/auth/login', { username, password });
+export const register = (username, password) => api.post('/auth/register', { username, password });
+export const getBoxInventory = (boxId) => api.get(`/box/${boxId}/inventory`);
+export const updateBoxInventory = (boxId, items) => api.post(`/box/${boxId}/inventory`, { items });
+
+export default api;

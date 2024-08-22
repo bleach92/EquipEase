@@ -1,24 +1,51 @@
-import React, { useEffect } from 'react';
-import { Html5QrcodeScanner } from 'html5-qrcode';
-import { Box } from '@mantine/core';
+import React, { useState } from 'react';
+import { QRCodeScanner } from 'react-qr-code';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
-function QRScanner({ onScanSuccess }) {
-    useEffect(() => {
-        const scanner = new Html5QrcodeScanner('reader', { fps: 10, qrbox: 250 });
-        scanner.render(onScanSuccess, (error) => {
-            console.log('QR Code Scan Error:', error);
-        });
+function QRScanner() {
+  const [result, setResult] = useState('');
+  const navigate = useNavigate();
 
-        return () => {
-            scanner.clear();
-        };
-    }, [onScanSuccess]);
+  const handleScan = (data) => {
+    if (data) {
+      setResult(data);
+    }
+  };
 
-    return (
-        <Box mt="xl" style={{ display: 'flex', justifyContent: 'center' }}>
-            <div id="reader"></div>
-        </Box>
-    );
+  const handleError = (err) => {
+    console.error(err);
+  };
+
+  const handleNavigate = () => {
+    if (result) {
+      navigate(`/inventory/${result}`);
+    }
+  };
+
+  return (
+    <Card className="max-w-md mx-auto mt-8">
+      <CardHeader>
+        <CardTitle>QR Code Scanner</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <QRCodeScanner
+          onError={handleError}
+          onScan={handleScan}
+          style={{ width: '100%' }}
+        />
+        <p className="mt-4">Scanned result: {result}</p>
+        <Button
+          onClick={handleNavigate}
+          disabled={!result}
+          className="mt-4"
+        >
+          Go to Inventory
+        </Button>
+      </CardContent>
+    </Card>
+  );
 }
 
 export default QRScanner;
